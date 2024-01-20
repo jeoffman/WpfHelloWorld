@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\WpfHelloWorld.ico</ApplicationIcon>
+
+    <Copyright>Debug</Copyright>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>0.0.0.1</FileVersion>
+    <Description>Description Here</Description>  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\About.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\About.png" />
+  </ItemGroup>
+  <ItemGroup>
+
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
