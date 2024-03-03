@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WpfHelloWorld.Models;
+using WpfHelloWorld.Services;
 using WpfHelloWorld.ViewModels;
 using WpfHelloWorld.Views;
 
@@ -29,9 +31,12 @@ namespace WpfHelloWorld
         {
             services.AddSingleton<MainWindow>();
             services.AddSingleton<AboutAssemblyDataProvider>();
+            services.AddSingleton<HelloDocument>();
 
             services.AddTransient<AboutDialog>();
             services.AddTransient<MainWindowViewModel>();
+
+            services.AddSingleton<IClickerService, ClickerService>();
         }
     }
 }

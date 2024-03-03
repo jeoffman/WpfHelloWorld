@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHelloWorld"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800">
+        Title="Main Window"
+        Height="{Binding MainWindowHeight, Mode=TwoWay}" d:Height="300"
+        Width="{Binding MainWindowWidth, Mode=TwoWay}" d:Width="500"
+        Top="{Binding MainWindowTop, Mode=TwoWay}"
+        Left="{Binding MainWindowLeft, Mode=TwoWay}"
+        >
 
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Help" Executed="HelpCmdExecuted"/>
@@ -30,10 +35,38 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <StatusBar Name="statusbar" DockPanel.Dock="Bottom" >status bar HERE</StatusBar>  <!-- Don't put this at the bottom of the XAML or you will screw everything up! -->
+        <ToolBarTray DockPanel.Dock="Top" Background="White">
+            <ToolBar >
+                <Button Command="{Binding SaveCommand}" >
+                    <Image Source="Resources\Save.png" />
+                </Button>
+                <Separator />
+                <Button Command="{Binding ClickerCommand}" >
+                    <Image Source="Resources\Plus.png" />
+                </Button>
+                <Separator />
+                <Button Command="{Binding AboutCommand}" >
+                    <Image Source="Resources\About.png" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar Name="statusbar" DockPanel.Dock="Bottom" >status bar HERE</StatusBar>
+        <!-- Don't put this at the bottom of the XAML or you will screw everything up! -->
 
-        <Grid >
-            <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="Clicker Counter:"/>
+                    <TextBlock Text="{Binding ClickerCounter}" d:Text="0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>
