@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace WpfHelloWorld.ViewModels
+namespace WpfHelloWorld.MvvmHelp
 {
     /// <summary>
     /// Trying to simplify the clumsy INotifyPropertyChanged garbage - don't put your other crap in here!
