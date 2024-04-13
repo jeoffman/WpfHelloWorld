@@ -10,7 +10,7 @@ namespace WpfHelloWorld.ViewModels
 {
     public class MainWindowViewModel : NotifyPropertyChangedBase
     {
-        const string DefaultDocumentFileName = "HelloWorld.hello";
+        const string DefaultDocumentFileName = $"HelloWorld.{HelloDocument.FileExtension}";
 
         readonly ILoggerFactory _loggerFactory;
         readonly ILogger<MainWindowViewModel> _logger;

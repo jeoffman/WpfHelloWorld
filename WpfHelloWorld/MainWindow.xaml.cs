@@ -28,6 +28,16 @@ namespace WpfHelloWorld
 
         private void HelpCmdExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            ShowAbout();
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAbout();
+        }
+
+        void ShowAbout()
+        {
             AboutDialog? dialog = _serviceProvider.GetService<AboutDialog>();
             if (dialog == null)
                 throw new InvalidOperationException("No About for you!");
