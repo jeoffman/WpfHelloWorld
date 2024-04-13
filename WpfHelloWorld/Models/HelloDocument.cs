@@ -1,11 +1,36 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using WpfHelloWorld.WinUtils;
 
 namespace WpfHelloWorld.Models
 {
     public class HelloDocument
     {
+        static bool _ExtensionAlreadyRegistered = false;
+
+        public const string FileExtension = "HelloWorld";
+
+        public static void RegisterFileExtensionForCurrentUser()
+        {
+            string? exeThatLaunchedUs = Assembly.GetExecutingAssembly().Location;
+            if (exeThatLaunchedUs.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                exeThatLaunchedUs = Environment.ProcessPath;
+            if (exeThatLaunchedUs == null)
+            {
+                Trace.TraceError("Couldn't associate FileExtension to this EXE because ProcessPath is NULL, run as administrator?");
+                return; //you are a null process? huh.
+            }
+
+            JkhFileAssociation.RegisterFileExtensionForCurrentUser(FileExtension, exeThatLaunchedUs);
+            if (!JkhFileAssociation.AdminAssociateAllUsers(FileExtension, FileExtension, exeThatLaunchedUs, "Hello World Document", exeThatLaunchedUs, 0))
+                Trace.TraceError("Couldn't associate FileExtension to this EXE you aren't admin, run as administrator?");
+        }
+
+
         public int MainWindowTop { get; set; }
         public int MainWindowLeft { get; set; }
         public int MainWindowWidth { get; set; } = 800;
@@ -13,6 +38,15 @@ namespace WpfHelloWorld.Models
 
         public string SomeHello { get; set; } = "Hello";
         public int ClickCounts { get; set; } = 0;
+
+        public HelloDocument()
+        {
+            if (!_ExtensionAlreadyRegistered)
+            {
+                _ExtensionAlreadyRegistered = true;
+                RegisterFileExtensionForCurrentUser();
+            }
+        }
 
         public async Task LoadAsync(string fileName)
         {

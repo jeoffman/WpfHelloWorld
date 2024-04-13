@@ -45,7 +45,7 @@
                     <Image Source="Resources\Plus.png" />
                 </Button>
                 <Separator />
-                <Button Command="{Binding AboutCommand}" >
+                <Button Click="About_Click" >
                     <Image Source="Resources\About.png" />
                 </Button>
             </ToolBar>
