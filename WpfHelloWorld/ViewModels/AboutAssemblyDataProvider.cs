@@ -14,8 +14,10 @@ namespace WpfHelloWorld
     /// This DataProvider retrieves the application's About information from
     /// the metadata on the assembly / Assembly attributes.
     /// </summary>
-    public class AboutAssemblyDataProvider //: IAboutDataProvider
+    public class AboutAssemblyDataProvider
     {
+        const int MaxPathDisplayLength = 60;
+
         private XmlDocument? xmlDoc = null;
         private string resourceKey = defaultAboutProviderKey;
 
@@ -154,23 +156,50 @@ namespace WpfHelloWorld
 
         /// <summary>
         /// Gets the link text to display in the About dialog.
+        /// Hijacked to show the (possibly abbreviated) EXE location if your assembly doesn't have a "link"
         /// </summary>
         public string LinkText
         {
             get
             {
-                return GetLogicalResourceString(xPathLink) ?? "NULL";
+                var linkText = GetLogicalResourceString(xPathLink);
+
+                if (string.IsNullOrEmpty(linkText))
+                {
+                    linkText = Assembly.GetExecutingAssembly().Location;
+                    if (linkText.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                        linkText = Environment.ProcessPath;
+                    if (!string.IsNullOrEmpty(linkText) && linkText.Length > MaxPathDisplayLength)
+                    {
+                        string[] filesArray = linkText.Split(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                        if (filesArray.Length > 4)
+                        {
+                            linkText = $"{filesArray[0]}\\{filesArray[1]}\\ ... \\{filesArray[filesArray.Length - 2]}\\{filesArray[filesArray.Length - 1]}";
+                        }
+                    }
+                }
+
+                return linkText ?? "NULL";
             }
         }
 
         /// <summary>
         /// Gets the link uri that is the navigation target of the link.
+        /// Hijacked to show the EXE location if your assembly doesn't have a "link"
         /// </summary>
         public string LinkUri
         {
             get
             {
-                return GetLogicalResourceString(xPathLinkUri) ?? "NULL";
+                var linkUri = GetLogicalResourceString(xPathLinkUri);
+                if (string.IsNullOrEmpty(linkUri))
+                {
+                    linkUri = Assembly.GetExecutingAssembly().Location;
+                    if (linkUri.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                        linkUri = Environment.ProcessPath;
+                }
+
+                return linkUri ?? "NULL";
             }
         }
 

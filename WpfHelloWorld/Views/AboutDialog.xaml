@@ -1,16 +1,11 @@
 ﻿<Window x:Class="WpfHelloWorld.Views.AboutDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="{Binding Mode=OneTime, Path=Title}" x:Uid="idAboutBox" Style="{DynamicResource AboutDialogStyle}" WindowStartupLocation="CenterOwner">
+    Title="{Binding Mode=OneTime, Path=Title}" x:Uid="idAboutBox"
+    Width="500" Height="Auto" 
+    ShowInTaskbar="False" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" 
+    SizeToContent="Height" WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <Style x:Key="AboutDialogStyle" TargetType="Window">
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="Width" Value="500" />
-            <Setter Property="ShowInTaskbar" Value="False" />
-            <Setter Property="ResizeMode" Value="NoResize" />
-            <Setter Property="WindowStyle" Value="SingleBorderWindow" />
-            <Setter Property="SizeToContent" Value="Height" />
-        </Style>
         <Style x:Key="DisplayAreaStyle" TargetType="{x:Type StackPanel}">
             <Setter Property="Margin" Value="10,10,10,5" />
         </Style>
@@ -43,13 +38,6 @@
             <Setter Property="TextWrapping" Value="WrapWithOverflow" />
             <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
         </Style>
-        <Style x:Key="OkButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="MinWidth" Value="75" />
-            <Setter Property="Margin" Value="0,5" />
-            <Setter Property="DockPanel.Dock" Value="Right" />
-            <Setter Property="IsDefault" Value="True" />
-            <Setter Property="IsCancel" Value="True" />
-        </Style>
     </Window.Resources>
     <StackPanel x:Uid="clientArea" Style="{StaticResource BackgroundStyle}">
         <StackPanel Orientation="Horizontal">
@@ -69,11 +57,9 @@
             <Label x:Name="info" x:Uid="info" Style="{StaticResource ParagraphSeparator}" Content="Product details:" />
             <TextBox x:Name="description" x:Uid="description" Text="{Binding Mode=OneTime, Path=Description}" Style="{StaticResource ReadOnlyDescStyle}" />
             <DockPanel x:Uid="buttonArea">
-                <Button x:Name="okButton" x:Uid="okButton" Style="{StaticResource OkButtonStyle}" 
-                        Content="OK" />
+                <Button x:Name="okButton" x:Uid="okButton" Content="OK" MinWidth="75" DockPanel.Dock="Right" Margin="0,5" IsDefault="True" IsCancel="True" />
                 <Label x:Name="productLink" x:Uid="productLink" Style="{StaticResource LinkLabelStyle}" >
-                    <Hyperlink x:Name="hyperlink" x:Uid="hyperlink" NavigateUri="{Binding Mode=OneTime, Path=LinkUri}"  Style="{StaticResource LinkLabelStyle}" >
-                        <!--Hyperlink.RequestNavigate="hyperlink_RequestNavigate">-->
+                    <Hyperlink x:Name="hyperlink" x:Uid="hyperlink" NavigateUri="{Binding Mode=OneTime, Path=LinkUri}"  Style="{StaticResource LinkLabelStyle}" RequestNavigate="hyperlink_RequestNavigate" >
                         <TextBlock Text="{Binding Mode=OneTime, Path=LinkText}" />
                     </Hyperlink>
                 </Label>

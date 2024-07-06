@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 
 namespace WpfHelloWorld.Views
 {
@@ -12,6 +14,19 @@ namespace WpfHelloWorld.Views
             InitializeComponent();
 
             DataContext = about;
+        }
+
+        private void hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo("explorer.exe", "/e,/select," + e.Uri.AbsolutePath.Replace("/", "\\")));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }
+            e.Handled = true;
         }
     }
 }
