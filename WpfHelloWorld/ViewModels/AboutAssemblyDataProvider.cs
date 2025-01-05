@@ -54,7 +54,7 @@ namespace WpfHelloWorld
         {
             get
             {
-                string result = CalculatePropertyValue<AssemblyTitleAttribute>("Title", xPathTitle);
+                string result = CalculatePropertyValue<AssemblyTitleAttribute>(nameof(Title), xPathTitle);
 
                 if (string.IsNullOrEmpty(result))
                 {
@@ -97,7 +97,7 @@ namespace WpfHelloWorld
         {
             get
             {
-                return CalculatePropertyValue<AssemblyDescriptionAttribute>("Description", xPathDescription);
+                return CalculatePropertyValue<AssemblyDescriptionAttribute>(nameof(Description), xPathDescription);
             }
         }
 
@@ -128,7 +128,7 @@ namespace WpfHelloWorld
         {
             get
             {
-                return CalculatePropertyValue<AssemblyProductAttribute>("Product", xPathProduct);
+                return CalculatePropertyValue<AssemblyProductAttribute>(nameof(Product), xPathProduct);
             }
         }
 
@@ -139,7 +139,7 @@ namespace WpfHelloWorld
         {
             get
             {
-                return CalculatePropertyValue<AssemblyCopyrightAttribute>("Copyright", xPathCopyright);
+                return CalculatePropertyValue<AssemblyCopyrightAttribute>(nameof(Copyright), xPathCopyright);
             }
         }
 
@@ -150,7 +150,7 @@ namespace WpfHelloWorld
         {
             get
             {
-                return CalculatePropertyValue<AssemblyCompanyAttribute>("Company", xPathCompany);
+                return CalculatePropertyValue<AssemblyCompanyAttribute>(nameof(Company), xPathCompany);
             }
         }
 
@@ -246,7 +246,7 @@ namespace WpfHelloWorld
                 {
                     // if we haven't already found the resource XmlDocument, then
                     // try to find it.
-                    Debug.Assert(App.Current != null, "The current application should no tbe null at this point.");
+                    Debug.Assert(App.Current != null, "The current application should not be null at this point.");
                     XmlDataProvider? provider = App.Current.TryFindResource(ResourceKey) as XmlDataProvider;
                     if (provider != null)
                     {
